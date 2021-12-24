@@ -21,8 +21,3 @@ sequelize
   .catch(() => {
     console.log('Unable to connect to the database')
   })
-
-//   MYSQL_DB_DEV=sintoniz_api-rest_dev
-// MYSQL_USER_DEV=sintoniz_clins
-// MYSQL_PASSWORD_DEV=sq88e2iutGi7
-// MYSQL_HOST_DEV=185.240.248.86
