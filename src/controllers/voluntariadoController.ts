@@ -1,4 +1,7 @@
+import { unlink } from 'fs/promises'
 import { Request, Response } from 'express';
+import { Sequelize } from 'sequelize';
+import sharp from 'sharp';
 
 import {Voluntariado} from '../models/Voluntariado';
 
@@ -32,12 +35,19 @@ export const getVoluntariado = async(req: Request, res: Response) => {
 
 // POST UPLOAD VOLUNTARIADO
 export const uploadFile = async(req: Request, res: Response) => {
-  const files = req.files as {
-    [fieldname: string]: Express.Multer.File[]
-  }
-  // console.log(req.files)
+  if (req.file) {
+    await sharp(req.file.path)
+    .resize(1000)
+    .toFormat('jpeg')
+    .toFile('./public/images/voluntariado/' + req.file.filename)
 
-  res.json({
-    message: 'upload voluntariado'
-  })
+    await unlink(req.file.path)
+    
+    res.json({
+      file: req.file
+    })
+  } else {
+    res.status(400)
+    res.json({ error: 'No file uploaded' })
+  }
 }
