@@ -25,6 +25,9 @@ export const Voluntariado = sequelize.define<VoluntariadoInstance>(
     },
     telemovel: {
       type: DataTypes.STRING,
+    },
+    fileUrl: {
+      type: DataTypes.STRING,
     }
   },
   {
