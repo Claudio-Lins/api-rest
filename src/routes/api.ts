@@ -11,10 +11,21 @@ const storageCurriculo = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     cb(null, `${file.fieldname}_${Date.now()}.${file.originalname}`);
-  }
+  },
 });
 const uploadVoluntariado = multer({
-  storage: storageCurriculo
+  storage: storageCurriculo,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype === "application/pdf") {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .pdf format allowed!"));
+    }
+  },
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
 })
 
 const router = Router();

@@ -35,7 +35,7 @@ export const uploadFile = async(req: Request, res: Response) => {
   const files = req.files as {
     [fieldname: string]: Express.Multer.File[]
   }
-  console.log(req.files)
+  // console.log(req.files)
 
   res.json({
     message: 'upload voluntariado'
