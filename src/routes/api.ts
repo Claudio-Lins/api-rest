@@ -5,8 +5,16 @@ import * as ScheduleController from "../controllers/scheduleController";
 import * as NewsletterController from "../controllers/newsletterController";
 import * as VoluntariadoController from "../controllers/voluntariadoController";
 
+const storageCurriculo = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./tmp");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${file.fieldname}_${Date.now()}.${file.originalname}`);
+  }
+});
 const uploadVoluntariado = multer({
-  dest: './tmp'
+  storage: storageCurriculo
 })
 
 const router = Router();
