@@ -27,7 +27,7 @@ export const createVoluntariado = async(req: Request, res: Response) => {
 // GET VOLUNTARIADO
 export const getVoluntariado = async(req: Request, res: Response) => {
   let voluntariado = await Voluntariado.findAll({
-    attributes: ['id', 'name', 'email', 'telemovel']
+    attributes: ['id', 'name', 'email', 'telemovel', 'fileUrl']
   })
 
   res.json(voluntariado)
@@ -42,6 +42,17 @@ export const uploadFile = async(req: Request, res: Response) => {
     .toFile('./public/images/voluntariado/' + req.file.filename)
 
     await unlink(req.file.path)
+
+    await Voluntariado.create({fileUrl: req.file.filename})
+      .then(() => {
+        res.json({
+          message: 'File uploaded successfully'
+        })
+      }).catch(err => {
+        res.status(500).json({
+          error: err
+        })
+      })
     
     res.json({
       file: req.file
