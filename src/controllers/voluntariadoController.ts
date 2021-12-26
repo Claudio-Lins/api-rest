@@ -37,12 +37,18 @@ export const getVoluntariado = async (req: Request, res: Response) => {
 // POST UPLOAD VOLUNTARIADO
 export const uploadFile = async (req: Request, res: Response) => {
   if (req.file) {
-    await sharp(req.file.path)
-      .resize(1000)
-      .toFormat('jpeg')
-      .toFile('./public/images/voluntariado/' + req.file.filename);
+    if (
+      req.file.mimetype === 'image/jpg' ||
+      req.file.mimetype === 'image/jpeg' ||
+      req.file.mimetype === 'image/png'
+    ) {
+      await sharp(req.file.path)
+        .resize(1000)
+        .toFile('./public/voluntariado/' + req.file.filename);
 
-    await unlink(req.file.path);
+      await unlink(req.file.path);
+    }
+
     const { filename } = req.file;
     const { name, telemovel, email } = req.body;
     const voluntariado = await Voluntariado.create({
