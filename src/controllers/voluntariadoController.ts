@@ -5,25 +5,6 @@ import sharp from 'sharp';
 
 import { Voluntariado } from '../models/Voluntariado';
 
-// POST VOLUNTARIADO
-// export const createVoluntariado = async (req: Request, res: Response) => {
-//   let { name, email, telemovel, fileUrl } = req.body;
-
-//   let newVoluntariado = await Voluntariado.create({
-//     name,
-//     email,
-//     telemovel,
-//     fileUrl,
-//   });
-
-//   res.json({
-//     id: newVoluntariado.id,
-//     name,
-//     email,
-//     telemovel,
-//     fileUrl,
-//   });
-// };
 
 // GET VOLUNTARIADO
 export const getVoluntariado = async (req: Request, res: Response) => {
@@ -58,7 +39,7 @@ export const uploadFile = async (req: Request, res: Response) => {
       email,
       fileUrl: req.file.filename,
     });
-    console.log('uploadFile:' + uploadFile);
+    
     res.json({ voluntariado });
   } else {
     res.status(400);

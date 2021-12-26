@@ -48,7 +48,6 @@ router.post('/schedule', ScheduleController.createSchedule);
 router.get('/schedule', ScheduleController.getSchedule);
 
 // VOLUNTARIADO
-// router.post('/voluntariado', VoluntariadoController.createVoluntariado)
 router.get('/voluntariado', VoluntariadoController.getVoluntariado);
 router.post(
   '/upload-voluntariado',
